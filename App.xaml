@@ -5,6 +5,9 @@
              StartupUri="Views/MainWindow.xaml" 
              Startup="OnApplicationStartup">
     <Application.Resources>
-         
+
+        <ResourceDictionary Source="/Styles/DefaultColors.xaml" />
+
+
     </Application.Resources>
 </Application>

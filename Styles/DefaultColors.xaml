@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+    <!--Menu Buttons-->
+    <SolidColorBrush x:Key="reduceBtn"
+                 Color="#F2D492" />
+    <SolidColorBrush x:Key="reduceBtnActive"
+                 Color="#EAB748" />
+    <SolidColorBrush x:Key="closeBtn"
+                 Color="#F29559" />
+    <SolidColorBrush x:Key="closeBtnActive"
+                 Color="#ED701D" />
+    <!--Buttons-->
+    <SolidColorBrush x:Key="btnForeground"
+                 Color="#202c39" />
+    <SolidColorBrush x:Key="normalBtn"
+                 Color="#F2D492" />
+    <SolidColorBrush x:Key="normalBtnActive"
+                 Color="#8a8156" />
+    <SolidColorBrush x:Key="playBtn"
+                 Color="#111921" />
+    <SolidColorBrush x:Key="playBtnActive"
+                 Color="#8a8156" />
+
+
+
+
+
+</ResourceDictionary>

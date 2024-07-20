@@ -143,7 +143,25 @@ namespace Pokedex.Views
 
 
         }
+        // Drag window
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
+                this.DragMove();
+        }
 
+        // Minimize window
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+
+        // Close window
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
 
     }

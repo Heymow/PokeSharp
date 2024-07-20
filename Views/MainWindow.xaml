@@ -5,32 +5,146 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pokedex.Views"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
         Title="PokedeX" Height="450" Width="800">
-    <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.8*"/>
-            <RowDefinition Height="0.1*"/>
-        </Grid.RowDefinitions>
 
-        <TextBlock Text="PoxedeX"
+    <Border CornerRadius="10"
+        BorderThickness="1"
+        Padding="8">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,1">
+                <GradientStop Color="#FFBDA49B"
+                          Offset="0" />
+                <GradientStop Color="#FFFFC8B3"
+                          Offset="0.75" />
+                <GradientStop Color="#FFFFC8A3"
+                          Offset="1" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1"
+                             EndPoint="1,0">
+                <GradientStop Color="#FFBDA49B"
+                          Offset="0" />
+                <GradientStop Color="#FFFFC8B3"
+                          Offset="0.75" />
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Panel.ZIndex="99"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+
+
+
+
+                <!--Minimize Button-->
+                <Button x:Name="btnMinimize"
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="{DynamicResource btnForeground}"
+                    FontSize="16"
+                    Cursor="Hand"
+                    Grid.Column="1"
+                    VerticalAlignment="Top"
+                    Click="BtnMinimize_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background"
+                                    Value="{DynamicResource reduceBtn}" />
+                            <Style.Triggers>
+                                <Trigger    Property="IsMouseOver"
+                                            Value="True">
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource reduceBtnActive}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18"
+                                    Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <!--Close Button-->
+                <Button x:Name="btnClose"
+                                BorderThickness="0"
+                                Content="X"
+                                Foreground="{DynamicResource btnForeground}"
+                                FontSize="12"
+                                Cursor="Hand"
+                                Grid.Column="2"
+                                Click="BtnClose_Click"
+                                VerticalAlignment="Top"
+                                Margin="10 0 0 0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background"
+                                       Value="{DynamicResource closeBtn}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                           Value="True">
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource closeBtnActive}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18"
+                                    Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+
+
+            </StackPanel>
+
+            <TextBlock Text="PoxedeX"
                    Grid.Row="0"
                    TextAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="40"
                    FontWeight="Bold"/>
 
-        <WrapPanel Orientation="Horizontal"
+            <WrapPanel Orientation="Horizontal"
                    Grid.Row="1" HorizontalAlignment="Left"
                    x:Name="pokemonContainer">
+            </WrapPanel>
 
-
-
-
-        </WrapPanel>
-
-        <Button Grid.Row="2"
+            <Button Grid.Row="2"
                 Content="NEXT"
                 Width="150"
                 Height="30"
@@ -38,5 +152,9 @@
                 HorizontalAlignment="Right"
                 Margin="0, 0, 20, 0"/>
 
-    </Grid>
+        </Grid>
+
+    </Border>
+
+
 </Window>
