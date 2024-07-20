@@ -1,0 +1,42 @@
+﻿<Window x:Class="Pokedex.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pokedex.Views"
+        mc:Ignorable="d"
+        Title="PokedeX" Height="450" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="PoxedeX"
+                   Grid.Row="0"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="40"
+                   FontWeight="Bold"/>
+
+        <WrapPanel Orientation="Horizontal"
+                   Grid.Row="1" HorizontalAlignment="Left"
+                   x:Name="pokemonContainer">
+
+
+
+
+        </WrapPanel>
+
+        <Button Grid.Row="2"
+                Content="NEXT"
+                Width="150"
+                Height="30"
+                BorderThickness="2"
+                HorizontalAlignment="Right"
+                Margin="0, 0, 20, 0"/>
+
+    </Grid>
+</Window>
