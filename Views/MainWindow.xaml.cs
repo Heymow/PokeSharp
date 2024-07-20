@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Pokedex.Models;
 using System.Diagnostics;
+using System.Drawing;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ColorConverter = System.Windows.Media.ColorConverter;
 
 namespace Pokedex.Views
 {
@@ -20,6 +23,8 @@ namespace Pokedex.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        PokemonTypesModel pokemonTypesModel = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +39,7 @@ namespace Pokedex.Views
 
         private async void GeneratePokemon()
         {
-            await GetPokemonTypes();
+            PokemonTypesModel typesDePokemons = await GetPokemonTypes();
 
 
             for (int i = 1; i <= 10; i++)
@@ -90,6 +95,23 @@ namespace Pokedex.Views
 
         private SolidColorBrush GetColorByType(string type)
         {
+
+            string[] types = [
+            "fire", "grass", "electric", "water", "ground", "rock", "fairy", "poison", "bug", "dragon", "psychic", "flying", "fighting", "normal"
+            ];
+
+            string[] colors = [
+            "#FDDFDF", "#DEFDE0", "#FCF7DE", "#DEF3FD", "#f4e7da", "#d5d5d4", "#fceaff", "#98d7a5", "#f8d5a3", "#97b3e6", "#eaeda1", "#F5F5F5", "#E6E0D4", "#F5F5F5"
+            ];
+
+            for (int i = 0; i < types.Length; i++)
+            {
+                if (types[i].Equals(type))
+                {
+                    return new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(colors[i]));
+                }
+            }
+
             return new SolidColorBrush(Colors.Blue);
         }
 
@@ -98,6 +120,7 @@ namespace Pokedex.Views
 
         private async Task<PokemonTypesModel> GetPokemonTypes()
         {
+
             HttpClient client = new()
             {
                 BaseAddress = new Uri(@"https://pokeapi.co/api/v2/type")
@@ -106,8 +129,9 @@ namespace Pokedex.Views
             {
                 string jsonResponse = await client.GetStringAsync("");
 
-                PokemonTypesModel pokemonTypesModel = JsonConvert.DeserializeObject<PokemonTypesModel>(jsonResponse);
+                pokemonTypesModel = JsonConvert.DeserializeObject<PokemonTypesModel>(jsonResponse);
                 //    Debug.WriteLine("Converted Types : ", pokemonTypesModel.Results[1].Name);
+
             }
             catch (Exception e)
             {
@@ -115,9 +139,12 @@ namespace Pokedex.Views
             }
 
 
-            return new PokemonTypesModel();
+            return pokemonTypesModel;
+
 
         }
+
+
 
     }
 }
