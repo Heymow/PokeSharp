@@ -6,8 +6,15 @@
              Startup="OnApplicationStartup">
     <Application.Resources>
 
-        <ResourceDictionary Source="/Styles/DefaultColors.xaml" />
 
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Styles/DefaultColors.xaml" />
+                <ResourceDictionary Source="/Styles/ButtonsStyle.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>

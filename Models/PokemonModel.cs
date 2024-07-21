@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace Pokedex.Models
 {
+
+
+
     public class PokemonModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -15,9 +18,9 @@ namespace Pokedex.Models
         private List<TypeObject> _types;
 
         [JsonProperty("id")]
-        public int Id 
+        public int Id
         {
-            get => _id; 
+            get => _id;
             set
             {
                 _id = value;
@@ -31,7 +34,7 @@ namespace Pokedex.Models
             get => _name;
             set
             {
-                _name = value;
+                _name = CapitalizeFirstLetter(value);
                 OnPropertyChanged(nameof(Name));
             }
         }
@@ -129,6 +132,17 @@ namespace Pokedex.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private static string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+            return char.ToUpper(input[0]) + input.Substring(1);
+        }
+
+
     }
 
 

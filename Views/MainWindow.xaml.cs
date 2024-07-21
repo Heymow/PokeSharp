@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Pokedex.Models;
+using Pokedex.Utils;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net.Http;
@@ -25,24 +26,27 @@ namespace Pokedex.Views
     {
 
         PokemonTypesModel pokemonTypesModel = new();
+        int displayPage = 1;
+
         public MainWindow()
         {
             InitializeComponent();
 
 
-
             GeneratePokemon();
+
 
         }
 
 
 
-        private async void GeneratePokemon()
+        private async void GeneratePokemon(int currentPage = 1)
         {
             PokemonTypesModel typesDePokemons = await GetPokemonTypes();
+            Previous.IsEnabled = false;
+            Next.IsEnabled = false;
 
-
-            for (int i = 1; i <= 10; i++)
+            for (int i = currentPage * 14 - 13; i <= 14 * currentPage; i++)
             {
 
 
@@ -56,6 +60,10 @@ namespace Pokedex.Views
                     PokemonModel pokemonModel = JsonConvert.DeserializeObject<PokemonModel>(jsonResponse);
                     //  Debug.WriteLine("Converted Pokemon : ", pokemonModel.Name);
 
+                    Border border = new();
+                    border.CornerRadius = new CornerRadius(10);
+                    border.Background = GetColorByType(pokemonModel.Types[0].Type.Name);
+                    border.Margin = new Thickness(10);
 
                     StackPanel pokemonCard = new();
                     Image pokemonImage = new();
@@ -68,14 +76,18 @@ namespace Pokedex.Views
                     TextBlock pokemonName = new()
                     {
                         TextAlignment = TextAlignment.Center,
-                        Text = pokemonModel.Name
+                        Text = pokemonModel.Name,
+                        Margin = new Thickness(0, 0, 0, 10),
+                        FontWeight = FontWeights.Bold,
                     };
-                    pokemonCard.Background = GetColorByType(pokemonModel.Types[0].Type.Name);
+                    pokemonCard.Background = new SolidColorBrush(Colors.Transparent);
+
 
                     pokemonCard.Orientation = Orientation.Vertical;
                     pokemonCard.Children.Add(pokemonImage);
                     pokemonCard.Children.Add((TextBlock)pokemonName);
-                    pokemonContainer.Children.Add(pokemonCard);
+                    border.Child = pokemonCard;
+                    pokemonContainer.Children.Add(border);
 
 
                 }
@@ -88,7 +100,8 @@ namespace Pokedex.Views
 
 
 
-
+            Previous.IsEnabled = true;
+            Next.IsEnabled = true;
 
         }
 
@@ -163,6 +176,32 @@ namespace Pokedex.Views
             Close();
         }
 
+        private void Button_Loaded(object? sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+                UiHelper.AnimateButton(button);
+        }
 
+        private void NextPageClickHandler(object sender, RoutedEventArgs e)
+        {
+            displayPage++;
+            if (displayPage > 1)
+            {
+                Previous.Visibility = Visibility.Visible;
+            }
+            pokemonContainer.Children.Clear();
+            GeneratePokemon(displayPage);
+        }
+
+        private void PreviousPageClickHandler(object sender, RoutedEventArgs e)
+        {
+            displayPage--;
+            if (displayPage == 1)
+            {
+                ((Button)sender).Visibility = Visibility.Hidden;
+            }
+            pokemonContainer.Children.Clear();
+            GeneratePokemon(displayPage);
+        }
     }
 }
